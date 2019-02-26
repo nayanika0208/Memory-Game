@@ -1,0 +1,331 @@
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body{
+  display:flex;
+  justify-content: center;
+  font-family: 'Slabo 27px', serif;
+
+}
+.main {
+
+    transform: translate(-50%, -50%);
+}
+
+.main-heading {
+  color: #777;
+  text-transform: uppercase;
+}
+
+.main-heading-primary {
+  font-size: 4rem;
+  font-weight: 100;
+  letter-spacing: 5px;
+  animation: moveInLeft 1s ease-out;
+  margin-bottom: 0;
+}
+h1 {
+  font-family: 'Slabo 27px', serif;
+font-family: 'Chonburi', cursive;
+}
+
+.score {
+	text-align: left;
+	margin-bottom: 10px;
+}
+
+.score .stars {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	margin: 0 5px 0 0;
+}
+
+.score .stars li {
+	list-style: none;
+	display: inline-block;
+}
+
+.score .restart {
+
+	cursor: pointer;
+}
+
+.fa-star {
+	color: #FFD700;
+}
+
+.timer {
+	display: inline-block;
+	margin: 0 1rem;
+}
+.container {
+
+    width:80vh;
+    display: grid;
+    grid-gap: 20px;
+    margin-bottom: 30px;
+
+    grid-template-columns: repeat(auto-fill, 100px); /*don't care how many columns. Just figure it out for me. show how you can change sizing of page*/
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    justify-items: start;
+    align-items: end;
+    padding:30px;
+    background-image: linear-gradient(to right,#808080, #E6E6E6);
+    border: 1px solid black;
+    border-radius: 2%;
+}
+
+
+.zone {
+    cursor:pointer;
+    height: 100px;
+    width:100px;
+    text-align: center;
+    font-size: 0;
+    border-radius:4px;
+    border:1px solid #bbb;
+    background: #131310;
+    transition: all 0.3s linear;
+    text-decoration-color: none;
+
+}
+
+
+.deck .zone.open {
+	transform: rotateY(0);
+	background-color: #F5F5F5;
+	cursor: default;
+  font-size: 4.5em;
+	animation-name: flipInY;
+	-webkit-backface-visibility: visible !important;
+	backface-visibility: visible !important;
+	animation-duration: .75s;
+
+
+}
+
+.deck .zone.disabled {
+	pointer-events: none;
+	opacity: 0.9;
+}
+.zone.show{
+  visibility: visible;
+  transform: rotateY(0);
+  animation-name: flipInY;
+
+}
+.deck .zone.match{
+ background-color: #D4F69C;
+  font-size: 4.5em;
+	cursor: default;
+  animation-name: rubberBand;
+  animation-duration: .75s;
+
+}
+.deck .zone.unmatched{
+   background-color:#FF8477;
+   animation-name: pulse;
+ 	-webkit-backface-visibility: visible !important;
+ 	backface-visibility: visible !important;
+ 	animation-duration: .75s;
+
+}
+.timer {
+	display: inline-block;
+	margin: 0 1rem;
+}
+.show {
+	visibility: visible !important;
+	opacity: 100 !important;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup .close:hover {
+	color: #E5F720;
+}
+
+.popup .content-1,
+.content-2 {
+	max-height: 30%;
+	overflow: auto;
+	text-align: center;
+}
+
+#starRating li {
+	display: inline-block;
+}
+
+
+#play-again {
+	background-color: #141214;
+	padding: 0.7rem 1rem;
+	font-size: 1.1rem;
+	display: block;
+	margin: 0 auto;
+	width: 50%;
+	font-family: 'Gloria Hallelujah', cursive;
+	color: #ffffff;
+	border-radius: 5px;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+.zone:hover {
+    -webkit-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -moz-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    -o-box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+}
+
+
+
+
+
+
+
+@keyframes flipInY {
+	from {
+		transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+		animation-timing-function: ease-in;
+		opacity: 0;
+	}
+
+	40% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+		animation-timing-function: ease-in;
+	}
+
+	60% {
+		transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+		opacity: 1;
+	}
+
+	80% {
+		transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+	}
+
+	to {
+		transform: perspective(400px);
+	}
+}
+
+@keyframes pulse {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	50% {
+		transform: scale3d(1.2, 1.2, 1.2);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes rubberBand {
+	from {
+		transform: scale3d(1, 1, 1);
+	}
+
+	30% {
+		transform: scale3d(1.25, 0.75, 1);
+	}
+
+	40% {
+		transform: scale3d(0.75, 1.25, 1);
+	}
+
+	50% {
+		transform: scale3d(1.15, 0.85, 1);
+	}
+
+	65% {
+		transform: scale3d(.95, 1.05, 1);
+	}
+
+	75% {
+		transform: scale3d(1.05, .95, 1);
+	}
+
+	to {
+		transform: scale3d(1, 1, 1);
+	}
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
